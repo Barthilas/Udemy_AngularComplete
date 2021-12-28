@@ -1,0 +1,57 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <button
+        class="btn btn-primary"
+        (click)="onlyOdd = !onlyOdd">Only show odd numbers</button>
+      <br><br>
+      <ul class="list-group">
+        <div *ngIf="onlyOdd">
+          <li
+          [ngClass]="{odd: odd % 2 !== 0}"
+          [ngStyle]="{backgroundColor: odd % 2 !== 0 ? 'yellow' : 'transparent'}"
+          class="list-group-item"
+          *ngFor="let odd of oddNumbers">
+          {{odd}}
+        </li>
+        </div>
+        <div *ngIf="!onlyOdd">
+          <li
+          class="list-group-item"
+          [ngClass]="{odd: even % 2 !== 0}"
+          [ngStyle]="{backgroundColor: even % 2 !== 0 ? 'yellow' : 'transparent'}"
+          *ngFor="let even of evenNumbers">
+          {{even}}
+        </li>
+        </div>
+      </ul>
+      <p appBasicHighlight> Style me with basic directive!</p>
+      <!-- defaultColor="yellow"  for string works as well, property binding-->
+      <p [appBetterHighlight]="'red'" [defaultColor]="'yellow'"> Style me with better directive!</p>
+      <div [ngSwitch]="value">
+          <p *ngSwitchCase="10">Value is 10</p>
+          <p *ngSwitchDefault="">Value is different than 10</p>
+      </div>
+      
+      <ng-template [ngIf]="onlyOdd">
+        <p>Only odd</p>
+      </ng-template>
+
+      <hr>
+      <h1>Structural directive</h1>
+      <div *appUnless="onlyOdd">
+        <li
+        class="list-group-item"
+        [ngClass]="{odd: even % 2 !== 0}"
+        [ngStyle]="{backgroundColor: even % 2 !== 0 ? 'yellow' : 'transparent'}"
+        *ngFor="let even of evenNumbers">
+        {{even}}
+      </li>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+
+<!-- * is structural directive, conditional renders. ngfor, ngif syntatic sugar-->
