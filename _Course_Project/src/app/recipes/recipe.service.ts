@@ -12,6 +12,8 @@ export class RecipeService {
     // recipeSelected = new EventEmitter<Recipe>();
     // recipeSelected = new Subject<Recipe>();
 
+    recipesChanged = new Subject<Recipe[]>();
+
    private recipes: Recipe[] = [
         new Recipe("Tasty Schnitzel", "A super-tasty schnitzel - just awesome!", 
         "https://upload.wikimedia.org/wikipedia/commons/2/22/Breitenlesau_Krug_Br%C3%A4u_Schnitzel.JPG",
@@ -38,8 +40,25 @@ export class RecipeService {
       return this.recipes[id];
     }
 
+    addRecipe(recipe: Recipe) 
+    {
+      this.recipes.push(recipe);
+      this.recipesChanged.next(this.recipes.slice())
+    }
+
+    updateRecipe(index: number, newRecipe: Recipe)
+    {
+      this.recipes[index] = newRecipe;
+      this.recipesChanged.next(this.recipes.slice())
+    }
+
     addIngredientsToShoppingList(ingredients: Ingredient[]) {
       this.slService.addIngredients(ingredients)
+    }
+
+    deleteRecipe(index: number) {
+      this.recipes.splice(index, 1);
+      this.recipesChanged.next(this.recipes.slice())
     }
 
 
