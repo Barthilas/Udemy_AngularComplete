@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Output } from "@angular/core";
+import { DataStorageService } from "../shared/data-storage.service";
 
 @Component(
     {  
@@ -12,7 +13,18 @@ export class HeaderComponent {
 
     collapsed = true;
 
+    constructor(private dataStorageService: DataStorageService) {}
+
     onSelect(option: string) {
         this.optionSelected.emit(option)
+    }
+
+    onSaveData()
+    {
+        this.dataStorageService.storeRecipes()
+    }
+
+    onFetchData() {
+        this.dataStorageService.fetchRecipes().subscribe()
     }
 }
