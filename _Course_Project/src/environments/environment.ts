@@ -3,8 +3,11 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  FireBaseAPIKey: "AIzaSyACgc5u0IC2-Wnp5L_H2FW-OxrN-X8hidw"
 };
+
+
 
 /*
  * In development mode, to ignore zone related error stack frames such as
