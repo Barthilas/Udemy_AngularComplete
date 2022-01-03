@@ -4,56 +4,48 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
-import { RecipesComponent } from './recipes/recipes.component';
-import { RecipesListComponent } from './recipes/recipes-list/recipes-list.component';
-import { RecipesDetailComponent } from './recipes/recipes-detail/recipes-detail.component';
-import { RecipesItemComponent } from './recipes/recipe-list/recipes-item/recipes-item.component';
-import { ShoppingListComponent } from './shopping-list/shopping-list.component';
-import { ShoppingEditComponent } from './shopping-list/shopping-edit/shopping-edit.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { DropdownDirective } from './shared/dropdown.directive';
 import { ShoppingListService } from './shopping-list/shopping-list.service';
-import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
-import { RecipeStartComponent } from './recipes/recipe-start/recipe-start.component';
-import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
 import { RecipeService } from './recipes/recipe.service';
 import { AuthComponent } from './auth/auth.component';
-import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { AlertComponent } from './shared/alert/alert.component';
-import { PlaceholderDirective } from './shared/placeholder/placeholder.directive';
+import { RecipesModule } from './recipes/recipes.module';
+import { ShoppingListModule } from './shopping-list/shopping-list.module';
+import { SharedModule } from './shared/shared.module';
+import { CoreModule } from './core.module';
+import { AuthModule } from './auth/auth.module';
+
+//EVERYTHING IN MODULE IS STANDALONE THERE IS NO MAGICAL COMMS OVER MODULES
 
 @NgModule({
+  //Can be declared once, else leads to error. Then export/import to share
   declarations: [
     AppComponent,
     HeaderComponent,
-    RecipesComponent,
-    RecipesListComponent,
-    RecipesDetailComponent,
-    RecipesItemComponent,
-    ShoppingListComponent,
-    ShoppingEditComponent,
-    DropdownDirective,
-    RecipeStartComponent,
-    RecipeEditComponent,
-    AuthComponent,
-    LoadingSpinnerComponent,
-    AlertComponent,
-    PlaceholderDirective
+    // DropdownDirective,
+    // LoadingSpinnerComponent,
+    // AlertComponent,
+    // PlaceholderDirective
   ],
   imports: [
-    BrowserModule,
-    FormsModule,
+    BrowserModule, //import only once (acces to ngIf, for..)
     AppRoutingModule,
-    ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    RecipesModule,
+    ShoppingListModule,
+    AuthModule,
+    SharedModule,
+    CoreModule
   ],
-  providers: [ShoppingListService, RecipeService,
-  {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi:true}],
+
+  //Core module, only when using providers: [] its better to use @injectable({providedIn}).
+  // providers: [ShoppingListService, RecipeService,
+  // {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi:true}],
   bootstrap: [AppComponent],
 
-  //Obsolete since Angular 9+ (for components generated from .ts)
-  entryComponents: [AlertComponent]
+  // //Obsolete since Angular 9+ (for components generated from .ts)
+  // entryComponents: [AlertComponent]
 })
 export class AppModule { }

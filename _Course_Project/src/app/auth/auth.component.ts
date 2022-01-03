@@ -19,7 +19,7 @@ export class AuthComponent implements OnInit, OnDestroy {
   error: string = null;
   private closeSub: Subscription
 
-  //first occurence
+  //searches for first occurence beware...
   @ViewChild(PlaceholderDirective, {static: false}) alertHost: PlaceholderDirective
 
   constructor(private authService: AuthService, private router: Router,
