@@ -1,21 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
+import { HttpClientModule } from '@angular/common/http'
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ShoppingListService } from './shopping-list/shopping-list.service';
 import { AppRoutingModule } from './app-routing.module';
-import { RecipeService } from './recipes/recipe.service';
-import { AuthComponent } from './auth/auth.component';
-import { AuthInterceptor } from './auth/auth.interceptor';
-import { AlertComponent } from './shared/alert/alert.component';
-import { RecipesModule } from './recipes/recipes.module';
-import { ShoppingListModule } from './shopping-list/shopping-list.module';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core.module';
-import { AuthModule } from './auth/auth.module';
+import { LoggingService } from './logging.service';
 
 //EVERYTHING IN MODULE IS STANDALONE THERE IS NO MAGICAL COMMS OVER MODULES
 
@@ -33,17 +25,19 @@ import { AuthModule } from './auth/auth.module';
     BrowserModule, //import only once (acces to ngIf, for..)
     AppRoutingModule,
     HttpClientModule,
-    RecipesModule,
-    ShoppingListModule,
-    AuthModule,
     SharedModule,
     CoreModule
   ],
 
   //Core module, only when using providers: [] its better to use @injectable({providedIn}).
+  //Providers are only good when you want to defined service for parent and its child components
+  //!!! However this is usually what you don't want and you should think about such behaviour as it can bring nasty bugs.
+  //TLDR: MOST OF THE TIME YOU USE INJECTABLE, PROVIDED IN COMBO OR PROVIDE THEM HERE IN APP MODULE.
+
   // providers: [ShoppingListService, RecipeService,
   // {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi:true}],
   bootstrap: [AppComponent],
+  // providers: [LoggingService]
 
   // //Obsolete since Angular 9+ (for components generated from .ts)
   // entryComponents: [AlertComponent]

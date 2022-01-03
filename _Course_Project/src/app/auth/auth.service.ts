@@ -23,7 +23,7 @@ export class AuthService {
   user = new BehaviorSubject<User>(null);
   private tokenExpirationTimer: any
 
-  //TO GET THE FIREBASEAPIKEY -> projectSettings on web
+  //TO GET THE FIREBASEAPIKEY -> projectSettings on web or just publish here since its demo.. :)
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -44,7 +44,7 @@ export class AuthService {
       _token: string,
       _tokenExpirationDate: string;
     } = JSON.parse(localStorage.getItem('userData'));
-    if(!this.user) return
+    if(!userData) return
 
     const loadedUser = new User(userData.email, userData.id, userData._token, new Date(userData._tokenExpirationDate))
 

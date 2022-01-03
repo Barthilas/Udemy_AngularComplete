@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { Router, RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '../auth/auth.guard';
 import { RecipeEditComponent } from './recipe-edit/recipe-edit.component';
 import { RecipeStartComponent } from './recipe-start/recipe-start.component';
@@ -9,7 +8,8 @@ import { RecipesDetailComponent } from './recipes-detail/recipes-detail.componen
 import { RecipesComponent } from './recipes.component';
 
 const routes: Routes = [
-  {path: 'recipes', component: RecipesComponent, canActivate:[AuthGuard] ,children: [
+  //because of lazy loading path is ''
+  {path: '', component: RecipesComponent, canActivate:[AuthGuard] ,children: [
     {path: '', component: RecipeStartComponent},
     {path: 'new', component: RecipeEditComponent},
     {path: ':id', component: RecipesDetailComponent, resolve: [RecipeResolver]},
