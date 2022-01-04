@@ -18,7 +18,7 @@ import { LoggingService } from './logging.service';
     HeaderComponent,
     // DropdownDirective,
     // LoadingSpinnerComponent,
-    // AlertComponent,
+    // AlertComponent, 
     // PlaceholderDirective
   ],
   imports: [
